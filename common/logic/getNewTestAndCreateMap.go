@@ -40,13 +40,11 @@ func GetNewTestAndCreateMap(text string, keywords []string) (string, map[string]
 	for _, pos := range positions {
 		keyword := keywordPositions[pos]
 		token := fmt.Sprintf("<*%d*>", tokenCounter)
+		// 更新标记到关键字的映射
+		tokenToKeywordMap[token] = keyword
 		sb.WriteString(text[lastPos:pos]) // 添加关键字之前的文本
 		sb.WriteString(token)             // 插入特定标记
 		lastPos = pos + len(keyword)
-
-		// 更新标记到关键字的映射
-		tokenToKeywordMap[keyword] = token
-
 		// 更新计数器，为下一个关键字实例生成新的标记
 		tokenCounter++
 	}
